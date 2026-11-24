@@ -1,4 +1,39 @@
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+
+// Page preloader and smooth entrance reveal
+document.body.classList.add('loading');
+const loader = $('#loader'), loaderBar = $('#loaderBar'), loaderPct = $('#loaderPct');
+let loadProgress = 0;
+const loadStartTime = performance.now();
+const loadInterval = setInterval(()=>{
+  const elapsed = performance.now() - loadStartTime;
+  // Smoothly increment progress towards 100%
+  if(loadProgress < 90){
+    loadProgress += Math.random() * 14 + 6;
+    if(loadProgress > 90) loadProgress = 90;
+  }
+  if(document.readyState === 'complete' && elapsed > 550){
+    loadProgress += 15;
+  }
+  if(loadProgress >= 100){
+    loadProgress = 100;
+    clearInterval(loadInterval);
+    if(loaderBar) loaderBar.style.width = '100%';
+    if(loaderPct) loaderPct.textContent = '100';
+    setTimeout(()=>{
+      if(loader) loader.classList.add('loaded');
+      document.body.classList.remove('loading');
+    }, 280);
+  } else {
+    if(loaderBar) loaderBar.style.width = `${Math.floor(loadProgress)}%`;
+    if(loaderPct) loaderPct.textContent = Math.floor(loadProgress);
+  }
+}, 45);
+
+window.addEventListener('load', ()=>{
+  if(loadProgress < 90) loadProgress = 90;
+});
+
 // theme toggle with circular expanding transition
 const thBtn=$('#thBtn');
 const getTh=()=>document.documentElement.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
