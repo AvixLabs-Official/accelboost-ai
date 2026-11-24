@@ -1,0 +1,18 @@
+{
+  "name": "accelboost-ai",
+  "version": "1.0.0",
+  "description": "AccelBoost AI - AI Marketing for Paid Ads, SEO & GEO",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "ai",
+    "marketing",
+    "seo",
+    "geo",
+    "landing-page"
+  ],
+  "author": "AvixLabs-Official",
+  "license": "MIT"
+}
